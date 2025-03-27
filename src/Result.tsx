@@ -1,4 +1,7 @@
-const Result = ({ result }) => {
+interface ResultInterface {
+  result: { name: string; image: string };
+}
+const Result = ({ result }: ResultInterface) => {
   const { name, image } = result;
   return (
     <div className=" flex-col justify-center w-1/2">
