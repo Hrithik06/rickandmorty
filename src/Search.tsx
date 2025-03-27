@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Result from "./Result";
+import Result, { ResultInterface } from "./Result";
 
 const Search = () => {
   const [searchText, setSearchText] = useState("");
@@ -19,7 +19,7 @@ const Search = () => {
     }
   }, [debouncedTxt]);
   const handleSearch = () => {
-    const filteredData = apiData.filter((episode) =>
+    const filteredData = apiData.filter((episode: ResultInterface) =>
       episode?.name.toLowerCase().includes(debouncedTxt.toLowerCase())
     );
 
@@ -40,7 +40,7 @@ const Search = () => {
     };
   }, [searchText]);
   return (
-    <div className=" flex-col justify-center gap-2 m-4">
+    <div className=" flex-col items-center mx-auto gap-2 my-4">
       <input
         type="text"
         placeholder="Search"
@@ -48,20 +48,24 @@ const Search = () => {
         onChange={(e) => setSearchText(e.target.value)}
         value={searchText}
       ></input>
-      <button
+      {/* <button
         type="button"
         className="bg-blue-500 px-4 py-2 rounded"
         onClick={handleSearch}
       >
         Search
-      </button>
+      </button> */}
 
-      <div className="flex-col">
-        {results.map((result) => (
-          <div key={result?.id}>
-            <Result result={result} />
-          </div>
-        ))}
+      <div className="flex-col mx-auto items-center">
+        {results.length > 0 ? (
+          results.map((result: ResultInterface) => (
+            <div key={result?.id}>
+              <Result result={result} />
+            </div>
+          ))
+        ) : (
+          <div>Nothing to Show</div>
+        )}
       </div>
     </div>
   );
